@@ -14,12 +14,13 @@ use App\Models\Post;
 |
 */
 
-Route::get('/', function () {    
+Route::get('/', function () {   
+     
     //ddd($posts[1]->getContents());
 
-    return view('posts', [
+    /* return view('posts', [
         'posts' => Post::all()
-    ]);
+    ]); */
 });
 
 Route::get('/hello', function () {
