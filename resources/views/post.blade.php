@@ -1,18 +1,31 @@
-<!doctype html>
-<title>My amazing blog</title>
-<link rel="stylesheet" href="/app.css">
-
-<body>     
+{{-- @extends('components.layout')
+@section('content')
     <article>
         <h1>            
             <?= $post->title; ?>            
         </h1>
 
         <div>
-            <?= $post->body; ?>
+            {!! $post->body!!}
         </div>
 
         <a href="/">Go Back to all posts</a>   
     </article> 
-   
-</body>
+@endsection --}}
+
+<x-layout>
+    <x-slot name="content">
+        <article>
+            <h1>            
+                {{ $post->title; }}           
+            </h1>
+    
+            <div>
+                {!! $post->body!!}
+            </div>
+    
+            <a href="/">Go Back to all posts</a>   
+        </article> 
+    </x-slot>
+  </x-layout>
+
