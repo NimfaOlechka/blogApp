@@ -4,8 +4,15 @@
 
 <body>     
     <article>
-        <?= $post; ?>
-        <a href="/">Go back to all posts</a>   
+        <h1>            
+            <?= $post->title; ?>            
+        </h1>
+
+        <div>
+            <?= $post->body; ?>
+        </div>
+
+        <a href="/">Go Back to all posts</a>   
     </article> 
    
-</blog>
+</body>

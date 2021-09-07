@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Support\Facades\File;
 use App\Models\Post;
 
 /*
@@ -14,39 +16,16 @@ use App\Models\Post;
 |
 */
 
-Route::get('/', function () {   
-     
-    //ddd($posts[1]->getContents());
-
-    /* return view('posts', [
-        'posts' => Post::all()
-    ]); */
+Route::get('/', function () {    
+    
+    $posts = Post::all();
+    return view('posts', ['posts'=> $posts]);
+   
 });
 
 Route::get('/hello', function () {
     return view('hello');
 });
-
-/*Route::get('posts/{post}', function ($slug) {
-    // Find a post by its slug and pass it to a view called posts
-    $path = __DIR__ . "/../resources/posts/{$slug}.html";
-    //ddd($path);
-
-    if(! file_exists($path)){
-        //abort(404);
-        //ddd('file does not exist');
-        return redirect('/');
-    }
-    //long form
-    $post = cache()->remember("posts.{$slug}", now()->addSeconds(5), function() use($path){
-        var_dump('file_get_contents');
-        return file_get_contents($path);
-    }); 
-    //short form
-    $post = cache()->remember("posts.{$slug}", 1200, fn()=> file_get_contents($path));
-    //$post = file_get_contents($path);
-    return view('post', ['post' => $post]);
-})->where('posts', '[A-z_\-]+');*/
 
 Route::get('posts/{post}', function ($slug) {
     
