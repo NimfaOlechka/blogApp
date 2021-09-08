@@ -127,3 +127,11 @@ Route::get('posts/{post}', function ($slug) {
         'post' => Post::find($slug)]);
     
 })->where('posts', '[A-z_\-]+');
+
+
+Route::get('posts/{post}', function ($id) {
+    
+    return view('post', [
+        'post' => Post::find($id)]);
+    
+});
