@@ -9,10 +9,14 @@ class Post extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $with = ['category', 'author'];
     //protected $guarded = ['id'];// everything except this one
     //protected $fillable = ['title', 'excerpt', 'body', 'slug']; // allowed to be mass assigned
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+    public function author(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }
