@@ -1,11 +1,35 @@
-<!doctype html>
-<title>My amazing blog</title>
-<link rel="stylesheet" href="/app.css">
-
-<body>     
+{{-- @extends('components.layout')
+@section('content')
     <article>
-        <?= $post; ?>
-        <a href="/">Go back to all posts</a>   
+        <h1>            
+            <?= $post->title; ?>            
+        </h1>
+
+        <div>
+            {!! $post->body!!}
+        </div>
+
+        <a href="/">Go Back to all posts</a>   
     </article> 
-   
-</blog>
+@endsection --}}
+
+<x-layout>
+    <x-slot name="content">
+        <article>
+            <h1>            
+                {{ $post->title; }}           
+            </h1>
+            <p>
+                By <a href="/authors/{{$post->author->username}}"> {{$post->author->name}}</a> in 
+                  <a href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a>
+              </p>
+    
+            <div>
+                {!! $post->body!!}
+            </div>
+    
+            <a href="/">Go Back to all posts</a>   
+        </article> 
+    </x-slot>
+  </x-layout>
+

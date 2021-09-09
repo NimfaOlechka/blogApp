@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Support\Facades\File;
 use App\Models\Post;
-
+use App\Models\User;
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,41 +18,33 @@ use App\Models\Post;
 */
 
 Route::get('/', function () {    
-    //ddd($posts[1]->getContents());
-
     return view('posts', [
-        'posts' => Post::all()
-    ]);
+        'posts'=> Post::latest()->get()
+    ]);   
 });
 
 Route::get('/hello', function () {
     return view('hello');
 });
 
-/*Route::get('posts/{post}', function ($slug) {
-    // Find a post by its slug and pass it to a view called posts
-    $path = __DIR__ . "/../resources/posts/{$slug}.html";
-    //ddd($path);
-
-    if(! file_exists($path)){
-        //abort(404);
-        //ddd('file does not exist');
-        return redirect('/');
-    }
-    //long form
-    $post = cache()->remember("posts.{$slug}", now()->addSeconds(5), function() use($path){
-        var_dump('file_get_contents');
-        return file_get_contents($path);
-    }); 
-    //short form
-    $post = cache()->remember("posts.{$slug}", 1200, fn()=> file_get_contents($path));
-    //$post = file_get_contents($path);
-    return view('post', ['post' => $post]);
-})->where('posts', '[A-z_\-]+');*/
-
-Route::get('posts/{post}', function ($slug) {
-    
+Route::get('posts/{post:slug}', function (Post $post) {    
+       
     return view('post', [
-        'post' => Post::find($slug)]);
+        'post' => $post]);
     
-})->where('posts', '[A-z_\-]+');
+});
+
+Route::get('categories/{category:slug}', function (Category $category)
+{
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
+});
+
+Route::get('authors/{author:username}',function(User $author)
+{
+    return view('posts', [
+        'posts' => $author->posts
+    ]);
+
+});

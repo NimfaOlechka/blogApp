@@ -1,25 +1,22 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post 
+class Post extends Model
 {
-    public static function all()
-    {
-        $files = File::files(resource_path("posts/"));
-        /* return array_map(function($file){
-            return $file->getContents();
-        }, $files); */
-        return array_map(fn($file) => $file->getContents(), $files);
+    use HasFactory;
+    protected $guarded = [];
+    protected $with = ['category', 'author'];
+    //protected $guarded = ['id'];// everything except this one
+    //protected $fillable = ['title', 'excerpt', 'body', 'slug']; // allowed to be mass assigned
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    public function author(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public static function find($slug)
-    {        
-        if(! file_exists( $path = resource_path("posts/{$slug}.html"))){        
-            throw new ModelNotFoundException();
-        }  
-        return cache()->remember("posts.{$slug}", 1200, fn()=> file_get_contents($path)); 
-    }
 }
-?>
