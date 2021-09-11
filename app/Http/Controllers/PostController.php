@@ -15,10 +15,15 @@ class PostController extends Controller
         //die('hello');  
         //dd(request(['search']));
         //dd(request()->only('search'));
+        /* return Post::latest()->filter(
+            request(['search','category','author'])
+        )->paginate(6); */
         return view('posts.index', [
-                'posts'=> Post::latest()->filter(request(['search', 'category', 'author']))->get()
+               'posts'=> Post::latest()->filter(
+                   request(['search', 'category', 'author'])
+                )->paginate(6)->withQueryString()
             
-        ]);   
+        ]);    
 
     }
 
