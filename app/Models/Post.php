@@ -12,10 +12,28 @@ class Post extends Model
     protected $with = ['category', 'author'];
     //protected $guarded = ['id'];// everything except this one
     //protected $fillable = ['title', 'excerpt', 'body', 'slug']; // allowed to be mass assigned
-    public function category(){
+    public function scopeFilter($query, array $filters) 
+    {
+        $query->when($filters['search'] ?? false, fn($query, $search)=>
+            $query
+                ->where('title', 'like', '%'.$search.'%')
+                ->orWhere('body', 'like', '%'.$search.'%'));
+        
+
+        /* if($filters['search'] ?? false){
+            $query
+                ->where('title', 'like', '%'.request('search').'%')
+                ->orWhere('body', 'like', '%'.request('search').'%');
+        } */
+        //return $query;
+    }
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function author(){
+    public function author()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
