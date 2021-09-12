@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Illuminate\Contracts\Auth\Authenticatable;
+use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades;
 use App\Models\User;
 
 class RegisterController extends Controller
@@ -23,7 +26,12 @@ class RegisterController extends Controller
             'password' => ['required', 'min:7', 'max:255']
         ]);       
         
-        User::create($attributes);
-        return redirect('/');
+        $user = User::create($attributes);
+
+        auth()->login($user);
+        //Auth::login($user);
+
+        //session()->flash('success','Your account has been created.');
+        return redirect('/')->with('success','Your account has been created.');
     }
 }
