@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use GuzzleHttp\Middleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,35 +20,73 @@ use App\Models\Category;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {    
-    return view('posts', [
-        'posts'=> Post::latest()->get()
-    ]);   
-});
-
-Route::get('/hello', function () {
-    return view('hello');
-});
-
-Route::get('posts/{post:slug}', function (Post $post) {    
-       
-    return view('post', [
-        'post' => $post]);
+Route::get('ping', function(){
     
-});
+   /*  $mailchimp = new \MailchimpTransactional\ApiClient();
 
-Route::get('categories/{category:slug}', function (Category $category)
-{
-    return view('posts', [
-        'posts' => $category->posts
+    
+    $mailchimp->setApiKey(config('services.mailchimp.key'));
+    $response = $mailchimp->users->ping(); */
+   // 
+    //$response = $mailchimp->users->ping();
+
+    $client = new \MailchimpMarketing\ApiClient();
+
+    $client->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => ''
     ]);
+    
+    //$response = $client->ping->get();
+    //$response = $client->lists->getAllLists();
+
+    //$list_id = $response->lists['id'];
+    // $list_id = '';
+
+    
+        $response = $client->lists->addListMember('', [
+            "email_address" => "benbrown@mail.com",
+            "status" => "subscribed",
+            "merge_fields" => [
+            "FNAME" => "Ben",
+            "LNAME" => "Brown"
+            ]
+        ]);
+        
+    
+    //ddd($response);
+
+
+    ddd($response);
+
+
 });
 
-Route::get('authors/{author:username}',function(User $author)
+Route::get('/', [ PostController::class, 'index'])->name('home');
+Route::get('posts/{post:slug}', [ PostController::class, 'show']);
+Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
+
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
+Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
+Route::post('logout',[SessionsController::class, 'destroy'])->middleware('auth');
+
+
+/* Route::get('categories/{category:slug}', function (Category $category)
 {
     return view('posts', [
+        'posts' => $category->posts,
+        'currentCategory' => $category,
+        'categories' => Category::all()
+    ]);
+})->name('category'); */
+
+/* Route::get('authors/{author:username}',function(User $author)
+{
+    return view('posts.index', [
         'posts' => $author->posts
     ]);
 
-});
+}); */
