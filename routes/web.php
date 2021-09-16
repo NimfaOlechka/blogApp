@@ -20,6 +20,47 @@ use GuzzleHttp\Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('ping', function(){
+    
+   /*  $mailchimp = new \MailchimpTransactional\ApiClient();
+
+    
+    $mailchimp->setApiKey(config('services.mailchimp.key'));
+    $response = $mailchimp->users->ping(); */
+   // 
+    //$response = $mailchimp->users->ping();
+
+    $client = new \MailchimpMarketing\ApiClient();
+
+    $client->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => ''
+    ]);
+    
+    //$response = $client->ping->get();
+    //$response = $client->lists->getAllLists();
+
+    //$list_id = $response->lists['id'];
+    // $list_id = '';
+
+    
+        $response = $client->lists->addListMember('', [
+            "email_address" => "benbrown@mail.com",
+            "status" => "subscribed",
+            "merge_fields" => [
+            "FNAME" => "Ben",
+            "LNAME" => "Brown"
+            ]
+        ]);
+        
+    
+    //ddd($response);
+
+
+    ddd($response);
+
+
+});
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [ PostController::class, 'show']);
