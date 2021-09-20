@@ -20,46 +20,31 @@ use GuzzleHttp\Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('ping', function(){
+Route::post('newsletter', function(){
     
-   /*  $mailchimp = new \MailchimpTransactional\ApiClient();
-
-    
-    $mailchimp->setApiKey(config('services.mailchimp.key'));
-    $response = $mailchimp->users->ping(); */
-   // 
-    //$response = $mailchimp->users->ping();
+   request()->validate(['email' => 'required|email']);
 
     $client = new \MailchimpMarketing\ApiClient();
 
     $client->setConfig([
         'apiKey' => config('services.mailchimp.key'),
-        'server' => ''
+        'server' => 'us5'
     ]);
     
-    //$response = $client->ping->get();
-    //$response = $client->lists->getAllLists();
-
-    //$list_id = $response->lists['id'];
-    // $list_id = '';
-
-    
-        $response = $client->lists->addListMember('', [
-            "email_address" => "benbrown@mail.com",
-            "status" => "subscribed",
-            "merge_fields" => [
-            "FNAME" => "Ben",
-            "LNAME" => "Brown"
-            ]
+    $list_id = "82d64c8ce1";
+    try{
+        $response = $client->lists->addListMember($list_id, [
+            "email_address" => request('email'),
+            "status" => "subscribed"       
+            
         ]);
-        
-    
-    //ddd($response);
+    } catch (\Exception $e){
+        \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'This email could not be added'
+        ]);        
+    }       
 
-
-    ddd($response);
-
-
+    return redirect('/')->with('success', 'You are now signed up for our newsletter');
 });
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
