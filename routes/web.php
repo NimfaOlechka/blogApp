@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -8,7 +9,9 @@ use App\Http\Controllers\SessionsController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Services\Newsletter;
 use GuzzleHttp\Middleware;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,36 +23,14 @@ use GuzzleHttp\Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('newsletter', function(){
-    
-   request()->validate(['email' => 'required|email']);
 
-    $client = new \MailchimpMarketing\ApiClient();
-
-    $client->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us5'
-    ]);
-    
-    $list_id = "82d64c8ce1";
-    try{
-        $response = $client->lists->addListMember($list_id, [
-            "email_address" => request('email'),
-            "status" => "subscribed"       
-            
-        ]);
-    } catch (\Exception $e){
-        \Illuminate\Validation\ValidationException::withMessages([
-            'email' => 'This email could not be added'
-        ]);        
-    }       
-
-    return redirect('/')->with('success', 'You are now signed up for our newsletter');
-});
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
+
 Route::get('posts/{post:slug}', [ PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
+
+Route::post('newsletter', NewsletterController::class);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
