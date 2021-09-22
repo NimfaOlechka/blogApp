@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Newsletter;
+use App\Services\INewsletter;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class NewsletterController extends Controller
 {
     
-    public function __invoke(Newsletter $newsletter)
+    public function __invoke(INewsletter $newsletter)
     {
+        //ddd($newsletter);
         request()->validate(['email' => 'required|email']);
          
          try{
