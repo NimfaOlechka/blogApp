@@ -40,6 +40,9 @@
                         @csrf
                         <button type="submit">Log out</button>
                     </form>
+                    <a href="/admin/posts/create" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                        Publish +
+                    </a> 
                 @else
                     <a href="/register" class="bg-gray-300 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Register</a>
                     <a href="/login" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Log In</a>
@@ -47,7 +50,7 @@
                 
                 <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
-                </a> 
+                </a>                 
             </div>
         </nav>    
 

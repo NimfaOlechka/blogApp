@@ -1,7 +1,7 @@
 <x-layout> 
-    <section class="px-6 py-8">
-        <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
-            <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">              
+    <x-panel class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">    
+        
+        <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">              
 
                 <div class="col-span-8">
                     <div class="hidden lg:flex justify-between mb-6">
@@ -20,8 +20,117 @@
                         </a>
                     </div>
                 </div>
-            </article>
+        </article>
+            
+        <section>
+            <form method="POST" action="/admin/posts" >
+                @csrf
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                           for="title"
+                    >
+                        Title
+                    </label>
+    
+                    <input class="border border-gray-400 p-2 w-full rounded-xl"
+                            type="text"
+                            name="title"
+                            id="title"
+                            value="{{ old('title')}}"
+                            required
+                    >
+    
+                    @error('title')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                        for="title"
+                    >
+                        Excerpt
+                    </label>
+    
+                    <textarea class="border border-gray-400 p-2 w-full rounded-xl"
+                           name="excerpt"  
+                           required
+                    >{{ old('excerpt')}}</textarea>
+    
+                    @error('excerpt')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                           for="slug"
+                    >
+                        Slug
+                    </label>
+    
+                    <textarea class="border border-gray-400 rounded-xl p-2 w-full"
+                           type="text"
+                           name="slug"    
+                           required
+                    >{{ old('slug')}}</textarea>
+    
+                    @error('slug')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                           for="body"
+                    >
+                        article
+                    </label>
+    
+                    <textarea class="w-full border border-gray-400 rounded-xl text-sm p-2" 
+                           cols="30" rows="5"
+                           name="body"
+                           id="body"
+                           required
+                    >{{ old('body')}}</textarea>
+    
+                    @error('body')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                           for="body"
+                    >
+                        Category
+                    </label>
+    
+                    <select class="" name="category_id" id="category">
+                        @php
+                            $categories = \App\Models\Category::all();
+                        @endphp   
+
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}"
+                                {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                >{{ ucwords($category->name) }}</option>
+                        @endforeach                       
+
+                    </select>
+    
+                    @error('category')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <x-submit-button> Publish </x-submit-button>
+            </form>
+
+        </section>
            
-        </main>   
-    </section>
+        
+    
+    </x-panel>
   </x-layout>

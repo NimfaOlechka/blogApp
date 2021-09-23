@@ -39,7 +39,9 @@ Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 
+//TODO: Check again limiting access to only admin middleware!
 Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('auth');
+Route::post('admin/posts',[PostController::class, 'store'])->middleware('auth');
 
 
 /* Route::get('categories/{category:slug}', function (Category $category)
