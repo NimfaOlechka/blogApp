@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
            'name' => 'Mary K.'
        ]); */
        // Category::factory()->create();
-        Post::factory(15)->create([
+        Post::factory(5)->create([
             
         ]);
        

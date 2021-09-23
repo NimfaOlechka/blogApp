@@ -47,10 +47,15 @@ class PostController extends Controller
 
     public function store()
     {
-       // ddd(request()->all());
+        //ddd(request()->all());
+        //ddd(request()->file('thumbnail'));
 
-        $attributes = request()->validate([
+       /*  request()->file('thumbnail')->store('thumbnails');
+        return 'done'; */
+
+         $attributes = request()->validate([
             'title' => 'required',
+            'thumbnail' => 'image',
             'excerpt' => 'required',
             'slug' => ['required',Rule::unique('posts', 'slug')],
             'body' => 'required',
@@ -59,6 +64,7 @@ class PostController extends Controller
 
         //ddd($attributes);
         $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
         //ddd($attributes);
         Post::create($attributes);

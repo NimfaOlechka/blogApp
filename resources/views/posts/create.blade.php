@@ -1,10 +1,10 @@
 <x-layout> 
     <x-panel class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">    
         
-        <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">              
+        <section class="mx-auto lg:grid lg:grid-cols-12 gap-x-10">              
 
                 <div class="col-span-8">
-                    <div class="hidden lg:flex justify-between mb-6">
+                    <div class="lg:flex justify-between mb-6">
                         <a href="/"
                             class="transition-colors duration-300 relative inline-flex items-center text-lg hover:text-blue-500">
                             <svg width="22" height="22" viewBox="0 0 22 22" class="mr-2">
@@ -20,12 +20,17 @@
                         </a>
                     </div>
                 </div>
-        </article>
+        </section>
             
         <section>
-            <form method="POST" action="/admin/posts" >
-                @csrf
 
+            
+            <h1 class="text-blue-500 text-lg font-bold mb-4"> 
+                Publish new post
+            </h1>
+            <form method="POST" action="/admin/posts"  enctype="multipart/form-data">
+                @csrf
+                {{--Title--}}
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
                            for="title"
@@ -45,24 +50,7 @@
                         <p class="text-red-500 text-s mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
-                        for="title"
-                    >
-                        Excerpt
-                    </label>
-    
-                    <textarea class="border border-gray-400 p-2 w-full rounded-xl"
-                           name="excerpt"  
-                           required
-                    >{{ old('excerpt')}}</textarea>
-    
-                    @error('excerpt')
-                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
+                {{--Slug--}}
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
                            for="slug"
@@ -80,7 +68,24 @@
                         <p class="text-red-500 text-s mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+                {{--Excerpt--}}
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                        for="title"
+                    >
+                        Excerpt
+                    </label>
+    
+                    <textarea class="border border-gray-400 p-2 w-full rounded-xl"
+                           name="excerpt"  
+                           required
+                    >{{ old('excerpt')}}</textarea>
+    
+                    @error('excerpt')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                {{--body--}}
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
                            for="body"
@@ -99,7 +104,7 @@
                         <p class="text-red-500 text-s mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
+                {{--Category select --}}
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
                            for="body"
@@ -124,6 +129,26 @@
                         <p class="text-red-500 text-s mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+                {{--Thumbnail--}}
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 px-2"
+                           for="thumbnail"
+                    >
+                        Thumbnail
+                    </label>
+    
+                    <input class="border border-gray-400 p-2 w-full rounded-xl"
+                            type="file"
+                            name="thumbnail"
+                            id="thumbnail"                           
+                            
+                    >
+    
+                    @error('body')
+                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
 
                 <x-submit-button> Publish </x-submit-button>
             </form>
