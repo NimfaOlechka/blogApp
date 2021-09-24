@@ -34,15 +34,33 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span class="text-xs font-bold uppercase"> Wellcome, {{auth()->user()->name}}</span>  
+                    <x-dropdown>
+                        <x-slot name='trigger'>
+                            <button class="text-xs font-bold uppercase"
+                             > Wellcome, {{auth()->user()->name}}
+                            </button>
+                        </x-slot> 
+                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">
+                                New Post                            
+                        </x-dropdown-item> 
+                        <x-dropdown-item href="/logout">
+                            Log out
+                        </x-dropdown-item>
+                        <x-dropdown-item href='#' x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">
+                            Post Log out
+                        </x-dropdown-item>
+                        <form id="logout-form" method="POST" action="/logout" class="hidden">
+                            @csrf
+                        </form>
+                    </x-dropdown>
 
-                    <form method="POST" action="/logout" class=" text-sm font-bold uppercase text-blue-500 ml-6">
+                    {{-- <form method="POST" action="/logout" class=" text-sm font-bold uppercase text-blue-500 ml-6">
                         @csrf
                         <button type="submit">Log out</button>
                     </form>
                     <a href="/admin/posts/create" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                        Publish +
-                    </a> 
+                        + New Post
+                    </a>  --}}
                 @else
                     <a href="/register" class="bg-gray-300 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Register</a>
                     <a href="/login" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Log In</a>

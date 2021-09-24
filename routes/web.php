@@ -37,6 +37,8 @@ Route::post('register', [RegisterController::class, 'store'])->middleware('guest
 
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
+
+Route::get('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 Route::post('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 
 //TODO: Check again limiting access to only admin middleware!
