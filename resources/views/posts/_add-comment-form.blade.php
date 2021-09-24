@@ -2,28 +2,25 @@
 <x-panel>
     <form method="POST" action="/posts/{{$post->slug}}/comments" >
         @csrf
+        
         <header class="flex items-center">
             <img src="https://i.pravatar.cc/60?u={{ auth()->id() }}" alt="" width="50" class="rounded-full">
             <h1 class="ml-4">Do you have comments?</h1>
         </header>
 
-        <div class="m-2 border border-gray-200 rounded-xl ">                                
-
+        <div class="m-2 border border-gray-200 rounded-xl ">    
+            
             <textarea class="w-full border-gray-100 rounded-xl text-sm p-2" 
                    cols="30" rows="5"                                           
                    name="body"                                          
                    placeholder="Leave your comment her..."                                           
                    required
             ></textarea>
-            @error('body')
-                <p class="text-red-500 text-s mt-1">{{ $message }}</p>
-            @enderror
+            <x-form.error name="body" />
         </div>
 
         <div class="flex justify-end">
-            <x-submit-button>
-                Post
-            </x-submit-button>
+            <x-form.button> Post </x-form.button>
         </div>    
     </form>
 </x-panel>
