@@ -30,7 +30,7 @@
             <h4 class="font-semibold mb-4">Links</h4>
             <ul>
                 <li>
-                    <a href="#" class="{{request()->is('admin/dashboard') ? 'text-blue-500': ''}}">Dashboard</a>
+                    <a href="/?author={{auth()->user()->username}}">Dashboard</a>
                 </li>
                 <li>
                     <a href="#" class="{{request()->is('admin/posts/create') ? 'text-blue-500': ''}}">New Post</a>

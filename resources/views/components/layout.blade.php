@@ -40,8 +40,11 @@
                              > Wellcome, {{auth()->user()->name}}
                             </button>
                         </x-slot> 
+                        <x-dropdown-item href="/?author={{auth()->user()->username}}" :active="request()->is('//?author={{auth()->user()->username}}')">
+                            Dashboard                            
+                        </x-dropdown-item> 
                         <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">
-                                New Post                            
+                            New Post                            
                         </x-dropdown-item> 
                         <x-dropdown-item href="/logout">
                             Log out
