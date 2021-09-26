@@ -26,14 +26,14 @@
     </h1>
 
     <div class="flex">
-        <aside class="w-48">
+        <aside class="w-36 flex-shrink-0">
             <h4 class="font-semibold mb-4">Links</h4>
             <ul>
                 <li>
-                    <a href="/?author={{auth()->user()->username}}">Dashboard</a>
+                    <a href="/admin/posts" class="{{request()->is('admin/posts') ? 'text-blue-500': ''}}">All posts</a>
                 </li>
                 <li>
-                    <a href="#" class="{{request()->is('admin/posts/create') ? 'text-blue-500': ''}}">New Post</a>
+                    <a href="/admin/posts/create" class="{{request()->is('admin/posts/create') ? 'text-blue-500': ''}}">New Post</a>
                 </li>
             </ul>
         </aside>

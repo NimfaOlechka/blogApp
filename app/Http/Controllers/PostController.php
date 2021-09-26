@@ -17,9 +17,7 @@ class PostController extends Controller
         //die('hello');  
         //dd(request(['search']));
         //dd(request()->only('search'));
-        /* return Post::latest()->filter(
-            request(['search','category','author'])
-        )->paginate(6); */
+        
         return view('posts.index', [
                'posts'=> Post::latest()->filter(
                    request(['search', 'category', 'author'])
@@ -34,40 +32,7 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post
         ]);
-    }
+    }    
 
-    public function create()
-    {
-        /* if(auth()->guest())
-        {
-            abort(Response::HTTP_FORBIDDEN);
-        } */
-        return view('posts.create');
-    }
-
-    public function store()
-    {
-        //ddd(request()->all());
-        //ddd(request()->file('thumbnail'));
-
-       /*  request()->file('thumbnail')->store('thumbnails');
-        return 'done'; */
-
-         $attributes = request()->validate([
-            'title' => 'required',
-            'thumbnail' => 'image',
-            'excerpt' => 'required',
-            'slug' => ['required',Rule::unique('posts', 'slug')],
-            'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories','id')]
-        ]); 
-
-        //ddd($attributes);
-        $attributes['user_id'] = auth()->id();
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-
-        //ddd($attributes);
-        Post::create($attributes);
-        return redirect('/')->with('success','Your post is published.');
-    }
+    
 }

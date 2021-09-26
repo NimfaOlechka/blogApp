@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Models\Post;
@@ -42,9 +43,14 @@ Route::get('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 Route::post('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 
 //TODO: Check again limiting access to only admin middleware!
-Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('auth');
-Route::post('admin/posts',[PostController::class, 'store'])->middleware('auth');
+//Admin
+Route::post('admin/posts',[AdminPostController::class, 'store'])->middleware('auth');
+Route::get('admin/posts/create',[AdminPostController::class, 'create'])->middleware('auth');
 
+Route::get('admin/posts',[AdminPostController::class, 'index'])->middleware('admin');
+Route::get('admin/posts/{post}/edit',[AdminPostController::class, 'edit'])->middleware('admin');
+Route::patch('admin/posts/{post}', [AdminPostController::class, 'update'])->middleware('admin');
+Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy'])->middleware('admin');
 
 /* Route::get('categories/{category:slug}', function (Category $category)
 {
