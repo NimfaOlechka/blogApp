@@ -42,16 +42,18 @@ Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest
 Route::get('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 Route::post('logout',[SessionsController::class, 'destroy'])->middleware('auth');
 
-//TODO: Check again limiting access to only admin middleware!
 //Admin
+Route::middleware('can:admin')->group(function(){
 
-Route::post('admin/posts',[AdminPostController::class, 'store'])->middleware('can:admin');
-Route::get('admin/posts/create',[AdminPostController::class, 'create'])->middleware('can:admin');
+    Route::post('admin/posts',[AdminPostController::class, 'store']);
+    Route::get('admin/posts/create',[AdminPostController::class, 'create']);
 
-Route::get('admin/posts',[AdminPostController::class, 'index'])->middleware('can:admin');
-Route::get('admin/posts/{post}/edit',[AdminPostController::class, 'edit'])->middleware('can:admin');
-Route::patch('admin/posts/{post}', [AdminPostController::class, 'update'])->middleware('can:admin');
-Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy'])->middleware('can:admin');
+    Route::get('admin/posts',[AdminPostController::class, 'index']);
+    Route::get('admin/posts/{post}/edit',[AdminPostController::class, 'edit']);
+    Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
+    Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
+});
+
 
 /* Route::get('categories/{category:slug}', function (Category $category)
 {
