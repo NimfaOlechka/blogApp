@@ -34,12 +34,40 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span class="text-xs font-bold uppercase"> Wellcome, {{auth()->user()->name}}</span>  
+                    <x-dropdown>
+                        <x-slot name='trigger'>
+                            <button class="text-xs font-bold uppercase"
+                             > Wellcome, {{auth()->user()->name}}
+                            </button>
+                        </x-slot> 
+                        @can('admin')
+                            <x-dropdown-item href="/admin/posts" :active="request()->is('/admin/posts')">
+                                Dashboard                            
+                            </x-dropdown-item> 
+                            <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">
+                                New Post                            
+                            </x-dropdown-item> 
+                        @endcan
+                        @admin
+                            <x-dropdown-item href="/logout">
+                                Log out
+                            </x-dropdown-item>
+                        @endadmin
+                        <x-dropdown-item href='#' x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">
+                            Post Log out
+                        </x-dropdown-item>
+                        <form id="logout-form" method="POST" action="/logout" class="hidden">
+                            @csrf
+                        </form>
+                    </x-dropdown>
 
-                    <form method="POST" action="/logout" class=" text-sm font-bold uppercase text-blue-500 ml-6">
+                    {{-- <form method="POST" action="/logout" class=" text-sm font-bold uppercase text-blue-500 ml-6">
                         @csrf
                         <button type="submit">Log out</button>
                     </form>
+                    <a href="/admin/posts/create" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                        + New Post
+                    </a>  --}}
                 @else
                     <a href="/register" class="bg-gray-300 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Register</a>
                     <a href="/login" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Log In</a>
@@ -47,7 +75,7 @@
                 
                 <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
-                </a> 
+                </a>                 
             </div>
         </nav>    
 
@@ -61,14 +89,24 @@
             <div class="mt-10">
                 <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
 
-                    <form method="POST" action="#" class="lg:flex text-sm">
+                    <form method="POST" action="/newsletter" class="lg:flex text-sm">
+                        @csrf
                         <div class="lg:py-3 lg:px-5 flex items-center">
                             <label for="email" class="hidden lg:inline-block">
                                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
                             </label>
-
-                            <input id="email" type="text" placeholder="Your email address"
+                            <div>
+                                <input id="email" 
+                                   name="email"
+                                   type="text" 
+                                   placeholder="Your email address"
                                    class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
+
+                                    @error('email')
+                                        <p class="text-red-500 text-s mt-1">{{ $message }}</p>
+                                    @enderror
+                            </div>
+                            
                         </div>
 
                         <button type="submit"

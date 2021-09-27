@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Comment;
+use App\Models\{User, Post, Category, Comment};
 use Illuminate\Http\Request;
 
 class CommentController extends Controller

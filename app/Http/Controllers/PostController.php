@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Post;
+use App\Models\{User, Category, Post};
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {    
@@ -15,9 +17,9 @@ class PostController extends Controller
         //die('hello');  
         //dd(request(['search']));
         //dd(request()->only('search'));
-        /* return Post::latest()->filter(
-            request(['search','category','author'])
-        )->paginate(6); */
+        //request()->user()->can('admin);
+        //dd(Gate::allows('admin'));
+        //$this->authorize('admin');
         return view('posts.index', [
                'posts'=> Post::latest()->filter(
                    request(['search', 'category', 'author'])
@@ -32,5 +34,7 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post
         ]);
-    }
+    }    
+
+    
 }

@@ -11,6 +11,7 @@
     
 
         <!-- Search -->
+        {{--TODO: Fix height of the button and search form --}}
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
             <form method="GET" action="/">
                 @if (request('category'))

@@ -23,14 +23,16 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $image = $this->faker->randomElement([rand(1,5)]);
         return [
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->paragraph(6),
+            'excerpt' => $this->faker->paragraph(5),
             'published_at' => $this->faker->date(),
-            'body' => $this->faker->paragraph(10)
+            'body' => '<p>' . implode('</p><p>', [$this->faker->paragraph(10)]) . '</p>',
+            'thumbnail' => 'thumbnails/illustration-' . $image.'.png'
         ];
     }
 }
