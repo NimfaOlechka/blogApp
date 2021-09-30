@@ -21,7 +21,8 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('slug')->unique();
             $table->text('excerpt');
-            $table->text('body');            
+            $table->text('body');  
+            $table->tinyInteger('status')->default('1');        
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

@@ -28,10 +28,10 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'title' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->paragraph(5),
+            'slug' => $this->faker->slug(10),
+            'excerpt' => $this->faker->paragraph(5),            
             'published_at' => $this->faker->date(),
-            'body' => '<p>' . implode('</p><p>', [$this->faker->paragraph(10)]) . '</p>',
+            'body' => '<p>' . implode('</p><p>', $this->faker->paragraphs(10)) . '</p>',
             'thumbnail' => 'thumbnails/illustration-' . $image.'.png'
         ];
     }
