@@ -29,7 +29,23 @@
                     </select>    
                 <x-form.error name='category'/>
             </x-form.field>
+            <x-form.field>
+                <x-form.label name='author'/>                    
 
+                    <select class="" name="user_id" id="user">
+                        @php
+                            $users = \App\Models\User::all();
+                        @endphp   
+
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}"
+                                {{ old('user_id', $post->user_id) == $user->id ? 'selected' : '' }}
+                                >{{ ucwords($user->username) }}</option>
+                        @endforeach                       
+
+                    </select>    
+                <x-form.error name='user'/>
+            </x-form.field>
             {{--Thumbnail--}}
             <div class="flex mt-6 mb-6">
                 <div class="flex-2 mr-4">

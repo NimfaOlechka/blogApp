@@ -46,7 +46,7 @@ class AdminPostController extends Controller
         $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails'); */
 
         $attributes = array_merge($this->validatePost(), [
-            'user_id' => auth()->id(),
+            'user_id' => request('user_id'),
             'thumbnail' => request()->file('thumbnail')->store('thumbnails')
         ]);
 

@@ -28,7 +28,23 @@
                     </select>    
                 <x-form.error name='category'/>
             </x-form.field>
+            <x-form.field>
+                <x-form.label name='author'/>                    
 
+                    <select class="" name="user_id" id="user">
+                        @php
+                            $users = \App\Models\User::all();
+                        @endphp   
+
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}"
+                                {{ old('user_id') == $user->id ? 'selected' : '' }}
+                                >{{ ucwords($user->username) }}</option>
+                        @endforeach                       
+
+                    </select>    
+                <x-form.error name='user'/>
+            </x-form.field>
             {{--Thumbnail--}}
             <x-form.input name='thumbnail' type='file' />
 
