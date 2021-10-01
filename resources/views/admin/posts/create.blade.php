@@ -28,6 +28,7 @@
                     </select>    
                 <x-form.error name='category'/>
             </x-form.field>
+             {{--Author select --}}
             <x-form.field>
                 <x-form.label name='author'/>                    
 
@@ -47,7 +48,13 @@
             </x-form.field>
             {{--Thumbnail--}}
             <x-form.input name='thumbnail' type='file' />
-
+            {{--Status--}}
+           
+            <input type="radio" name='status' value="1"/>
+            <span class="ml-1 text-blue-800">Save the Draft</span>
+            <input type="radio" name='status' value="2"/>
+            <span class="ml-1 text-green-800">Publish the Post</span>
+              
             <x-form.button> Publish </x-form.button>
         </form>
     </x-setting>    

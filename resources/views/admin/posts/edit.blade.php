@@ -54,7 +54,13 @@
                     <x-form.input name='thumbnail' type='file' :value="old('thumbnail', $post->thumbnail)"/>
                     
             </div>
-
+            {{--Status--}}
+           
+            <input type="radio" name='status' value="1"/>
+            <span class="ml-1 text-blue-800">Save the Draft</span>
+            <input type="radio" name='status' value="2"/>
+            <span class="ml-1 text-green-800">Publish the Post</span>
+              
             <x-form.button> Save changes </x-form.button>
         </form>
     </x-setting>    
