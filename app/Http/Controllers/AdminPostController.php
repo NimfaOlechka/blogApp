@@ -33,7 +33,7 @@ class AdminPostController extends Controller
 
     public function store()
     {
-        //ddd(request()->all());
+        ddd(request()->all());
         //ddd(request()->file('thumbnail'));
 
        /*  request()->file('thumbnail')->store('thumbnails');
@@ -62,6 +62,7 @@ class AdminPostController extends Controller
         
         if($attributes['thumbnail'] ?? 'false')
         {
+            
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
 
@@ -84,7 +85,9 @@ class AdminPostController extends Controller
             'excerpt' => 'required',
             'slug' => ['required',Rule::unique('posts', 'slug')->ignore($post)],
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories','id')]
+            'category_id' => ['required', Rule::exists('categories','id')],
+            'user_id' => 'required',
+            'status' => 'required'
         ]); 
     }
 }
