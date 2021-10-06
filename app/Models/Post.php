@@ -46,6 +46,11 @@ class Post extends Model
         } */        
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('status', '=', 2);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

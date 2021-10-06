@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PostController extends Controller
 {    
 
-    public function index() 
+    public function allPosts() 
     {
         //die('hello');  
         //dd(request(['search']));
@@ -30,7 +30,7 @@ class PostController extends Controller
 
     }
 
-    public function blogFeed()
+    /* public function blogFeed()
     {
         //show only posts with status 'published'
         //all filters and search requests should work too
@@ -39,6 +39,21 @@ class PostController extends Controller
         //dd( $posts);
         return view('posts.index', [
             'posts' => Post::where('status', 2)->paginate(5)
+        ]);
+
+
+    } */
+    public function index()
+    {
+        //show only posts with status 'published'
+        //all filters and search requests should work too      
+       
+        //dd( $posts);
+        return view('posts.index', [
+            'posts' => Post::published()
+                        ->filter(request(['search', 'category', 'author']))
+                        ->paginate(5)
+                        ->withQueryString()
         ]);
 
 

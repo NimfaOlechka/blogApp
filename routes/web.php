@@ -28,7 +28,7 @@ use Illuminate\Validation\ValidationException;
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
 
-Route::get('blog', [ PostController::class, 'blogFeed']);
+//Route::get('blog', [ PostController::class, 'postsIndex']);
 
 Route::get('posts/{post:slug}', [ PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
