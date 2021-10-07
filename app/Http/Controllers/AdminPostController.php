@@ -33,7 +33,7 @@ class AdminPostController extends Controller
 
     public function store()
     {
-        ddd(request()->all());
+        //ddd(request()->all());
         //ddd(request()->file('thumbnail'));
 
        /*  request()->file('thumbnail')->store('thumbnails');
@@ -50,7 +50,7 @@ class AdminPostController extends Controller
             'thumbnail' => request()->file('thumbnail')->store('thumbnails')
         ]);
 
-        //ddd($attributes);
+        
         //request()->user()->posts()->create();
         Post::create($attributes);
         return redirect('/')->with('success','Your post is published.');
@@ -58,11 +58,11 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {       
-         $attributes = $this->validatePost($post); 
+        $attributes = $this->validatePost($post); 
+        //ddd($attributes);
         
-        if($attributes['thumbnail'] ?? 'false')
-        {
-            
+        if($attributes['thumbnail'] ?? false)
+        {            
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
 
