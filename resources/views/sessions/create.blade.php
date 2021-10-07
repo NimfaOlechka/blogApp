@@ -10,7 +10,12 @@
 
                     <x-form.input name="password" type="password" autocomplete="new-password"/>
 
+                    {{--TODO: Fix styling for buttons for responsive view--}}
+                    <div class="mt-5 md:justify-between flex items-center">
                     <x-form.button>Log in</x-form.button>
+                    <a href="forgot-password" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-2 px-10 hover:bg-blue-500"
+                     > Forgot password</a>
+                    </div>
 
                     @if ($errors->any())
                         <ul>
