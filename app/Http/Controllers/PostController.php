@@ -51,8 +51,9 @@ class PostController extends Controller
         //dd( $posts);
         return view('posts.index', [
             'posts' => Post::published()
+                        ->latest()
                         ->filter(request(['search', 'category', 'author']))
-                        ->paginate(5)
+                        ->paginate(6)
                         ->withQueryString()
         ]);
 
@@ -61,7 +62,7 @@ class PostController extends Controller
 
     public function show(Post $post) 
     {
-        dd($post);
+        //dd($post);
         return view('posts.show', [
             'post' => $post
         ]);
