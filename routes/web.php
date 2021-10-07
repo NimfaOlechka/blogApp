@@ -2,17 +2,18 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
-use App\Services\Newsletter;
-use GuzzleHttp\Middleware;
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,11 @@ use Illuminate\Validation\ValidationException;
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
 
-//Route::get('blog', [ PostController::class, 'postsIndex']);
+//Resetting password routes
+Route::get('forgot-password', [RegisterController::class, 'passwordRequest'])->middleware('guest')->name('password.request');
+Route::post('forgot-password', [RegisterController::class, 'passwordEmail'])->middleware('guest')->name('password.email');
+Route::get('reset-password/{token}', [RegisterController::class, 'passwordReset'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [RegisterController::class, 'passwordUpdate'])->middleware('guest')->name('password.update');
 
 Route::get('posts/{post:slug}', [ PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
