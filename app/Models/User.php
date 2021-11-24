@@ -6,23 +6,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Payment;
+
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    use Billable;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'password',
-    ];
+    protected $guarded = [  ];
 
     /**
      * The attributes that should be hidden for serialization.

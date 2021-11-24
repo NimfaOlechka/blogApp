@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -28,6 +28,9 @@ use Illuminate\Support\Str;
 
 
 Route::get('/', [ PostController::class, 'index'])->name('home');
+//Payment
+Route::get('/checkout', [StripeController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::post('/charge', [StripeController::class, 'charge'])->middleware('auth')->name('charge');
 
 //Resetting password routes
 Route::get('forgot-password', [RegisterController::class, 'passwordRequest'])->middleware('guest')->name('password.request');

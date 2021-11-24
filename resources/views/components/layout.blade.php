@@ -21,6 +21,27 @@
     .clamp.one-line{
         -webkit-line-clamp: 1;
     }
+
+    .StripeElement {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+    .StripeElement--focus {
+        box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+    .StripeElement--invalid {
+        border-color: #fa755a;
+    }
+    .StripeElement--webkit-autofill {
+        background-color: #fefde5 !important;
+    }
 </style>
 
 <body style="font-family: Open Sans, sans-serif">

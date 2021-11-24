@@ -20,6 +20,7 @@
                     </div>
                 </div>
 
+
                 <div class="col-span-8">
                     <x-back-button />
 
@@ -46,6 +47,12 @@
                 </div>
             </article>
            
+            <div>Payment</div>
+            <div>
+                <a href="/checkout">
+                    try me!                       
+                </a>
+            </div>
         </main>   
     </section>
   </x-layout>

@@ -36,6 +36,9 @@ return [
         'lists' => [
             'subscribers' => env('MAILCHIMP_LIST_SUBSCRIBERS')
         ]
-    ]
+        ],
+        'cashier' => [
+            'default_currency' => env('CASHIER_CURRENCY', 'DKK')
+        ]
 
 ];
