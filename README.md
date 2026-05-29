@@ -1,47 +1,45 @@
-# BlogApp – ASP.NET Core MVC Application
+# BlogApp – Laravel Web Application
 
 ## Overview
-BlogApp is a full-stack ASP.NET Core MVC application built to practice backend development, database-driven functionality, authentication, and structured web application architecture.
+BlogApp is a full-stack web application built with Laravel, focusing on backend development, database-driven functionality, and user interaction.
 
-The project focuses on creating a maintainable and scalable web application using modern .NET development practices.
+The project demonstrates practical experience with building structured web applications using the Laravel framework.
 
 ---
 
 ## Features
 - User authentication and authorization
 - CRUD operations for blog posts
-- Database integration using Entity Framework Core
-- MVC architecture
-- Structured backend and frontend separation
+- Database integration using Eloquent ORM
+- MVC architecture (Laravel)
 - Form handling and validation
+- User interaction and content management
 
 ---
 
 ## Tech Stack
-- C# / ASP.NET Core MVC
-- Entity Framework Core
-- SQL Server
+- PHP (Laravel)
+- MySQL
 - HTML / CSS / JavaScript
 
 ---
 
 ## Purpose
-The purpose of this project is to strengthen practical experience with:
-- Full-stack web application development
-- Backend architecture in .NET
+The purpose of this project is to gain hands-on experience with:
+- Full-stack web development in Laravel
+- Backend logic and application structure
 - Database design and integration
-- User and content management flows
+- User and content management workflows
 
 ---
 
 ## Notes
-This project was built for learning and experimentation with modern ASP.NET Core application development.
+This project focuses on practical application development and understanding of modern web frameworks.
 
 ---
 
 ## Author
-[Your Name]
-
+Olga K
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
