@@ -1,3 +1,48 @@
+# BlogApp – ASP.NET Core MVC Application
+
+## Overview
+BlogApp is a full-stack ASP.NET Core MVC application built to practice backend development, database-driven functionality, authentication, and structured web application architecture.
+
+The project focuses on creating a maintainable and scalable web application using modern .NET development practices.
+
+---
+
+## Features
+- User authentication and authorization
+- CRUD operations for blog posts
+- Database integration using Entity Framework Core
+- MVC architecture
+- Structured backend and frontend separation
+- Form handling and validation
+
+---
+
+## Tech Stack
+- C# / ASP.NET Core MVC
+- Entity Framework Core
+- SQL Server
+- HTML / CSS / JavaScript
+
+---
+
+## Purpose
+The purpose of this project is to strengthen practical experience with:
+- Full-stack web application development
+- Backend architecture in .NET
+- Database design and integration
+- User and content management flows
+
+---
+
+## Notes
+This project was built for learning and experimentation with modern ASP.NET Core application development.
+
+---
+
+## Author
+[Your Name]
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
